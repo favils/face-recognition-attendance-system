@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import sqlite3
 import pickle
 
 # database connection
@@ -9,6 +8,9 @@ conn = sqlite3.connect('facedata.db')
 # declare camera & face detection classifier
 video = cv2.VideoCapture(0)
 facedetect = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
+if not video.isOpened():
+    print("Cannot access camera")
+    exit()
 
 def add_face(id, first, last, face):
     with conn:
